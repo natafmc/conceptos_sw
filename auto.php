@@ -1,51 +1,42 @@
 <?php 
-abstract class Car {
-    protected $tankVolume;
-    protected $modelo;
-    public function setVolumenDeTanque($volume)
+class Auto {    
+    public $modelo;
+    public $color;
+    public $volumenDeTanque;
+    public $marca;
+    
+    public function __construct($modelo,$marca,$color,$volumenDeTanque)
     {
-        $this -> tankVolume = $volume;
+      $this->modelo = $modelo;
+      $this->color = $color;
+      $this->marca = $marca;
+      $this->volumenDeTanque = $volumenDeTanque;
+    }   
+    public function obtenerInformacion(){
+      echo "=====================================<br>";
+      echo "MODELO: $this->modelo <br>";
+      echo "MARCA: $this->marca<br>";
+      echo "COLOR: $this->color<br>";
+      echo "VOLUMEN DE TANQUE: $this->volumenDeTanque Litros<br>";
+      echo "RECORRE: {$this->calcularKmConTanqueLleno()} Km.<br>";
+      echo "=====================================<br>";
     }
-    public function setModelo($modelo)
+    public function calcularKmConTanqueLleno()
     {
-        $this -> modelo = $modelo;
-    }    
-    abstract public function calcularKmConTanqueLleno();
+      return $this->volumenDeTanque * 30;
+    }
 }
 
-class Honda extends Car {
-  public function calcularKmConTanqueLleno()  
-  {
-    $miles = $this -> tankVolume*30;
-    return $miles;
-  }
-  public function getColor()
-  {
-    return "Rojo";
-  }
+
+$catalogo = array(new Auto('2018', 'HONDA','Verde','50'),
+                  new Auto('2018', 'TOYOTA','Azul','25'),
+                  new Auto('2016', 'TOYOTA','Negro','55'),
+                  new Auto('2014', 'TOYOTA','Gris','75'),
+                  new Auto('2013', 'NISSAN','Naranja','15'));
+foreach($catalogo as $auto) 
+{
+    $auto->obtenerInformacion();
+    
 }
 
-class Toyota extends Car {
-  public function calcularKmConTanqueLleno()
-  {
-    return $miles = $this -> tankVolume*33;
-  }
- 
-  public function getColor()
-  {
-    return "Azul";
-  }
-  public function getModelo()
-  {
-      return "Toyota ".$this->modelo;
-  }
-}
-
-$toyota1 = new Toyota();
-$toyota1 -> setModelo("SCION 2018");
-$toyota1 -> setVolumenDeTanque(10);
-echo $toyota1->getModelo();
-echo "<br>";
-echo $toyota1 -> calcularKmConTanqueLleno().'KM ';
-echo "<br>";
-echo $toyota1 -> getColor();
+    
